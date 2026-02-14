@@ -1,0 +1,491 @@
+/* 상단 무한 루프 마키 (3개 텍스트, 왼쪽 이동, 모바일 영역 안에서만 보임) */
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 20px;
+  white-space: nowrap;
+  padding: 0.5rem 0;
+  flex-shrink: 0;
+}
+
+.marquee__inner {
+  display: inline-flex;
+  animation: marquee-flow 15s linear infinite;
+}
+
+.marquee__text {
+  padding-right: 2rem;
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+@keyframes marquee-flow {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33.333%);
+  }
+}
+
+/* 모바일 폰 너비로 제한 (데스크톱에서는 가운데 정렬), 밖으로 넘치는 요소 숨김 */
+.first-screen {
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.5rem;
+  padding: 1.5rem 0 0;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+
+.first-screen__maintext {
+  width: 80%;
+  max-width: 80%;
+  height: auto;
+  object-fit: contain;
+  margin-top: 2.5rem;
+}
+
+.first-screen__mainimg {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin-top: auto;
+}
+
+.first-screen__touch-hint-box {
+  position: absolute;
+  left: 50%;
+  top: 85%;
+  transform: translate(-50%, -50%);
+  padding: 10px 30px;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: first-screen-blink 1s ease-in-out infinite;
+  z-index: 10;
+}
+
+.first-screen__touch-hint-text {
+  color: #000000;
+  font-size: 1rem;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@keyframes first-screen-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ---------- 슬라이더 페이지 (2페이지) ---------- */
+.slider-screen {
+  width: 100%;
+  max-width: 390px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  padding-top: 15dvh;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  background-color: #fff;
+}
+
+.slider-screen__title {
+  width: calc(50%);
+  max-width: 200px;
+  margin: 0 auto 2rem;
+  padding: 0.35rem 0.4rem;
+  font-family: Pretendard;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #000;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.slider-screen__image {
+  width: 100%;
+  margin-top: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  transform: scale(1.8);
+  transform-origin: center top;
+}
+
+.slider-screen__image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 이미지(scale 1.8) 하단과 겹치지 않게 문구·슬라이더·버튼을 아래로 배치 */
+.slider-screen__top {
+  padding-bottom: 13rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slider-screen__image-wrap {
+  position: relative;
+  width: 62%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 문구: scale(1.8)된 이미지 시각적 하단(180%) 아래에 위치 */
+.slider-screen__hint {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(180% + 2rem);
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #000000;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.slider-screen__bar-wrap {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin-top: 0;
+  flex-shrink: 0;
+}
+
+.slider-screen__bar {
+  width: 100%;
+  min-height: 24px;
+  height: 24px;
+  background-color: #000;
+  border-radius: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  overflow: visible;
+}
+
+.slider-screen__labels {
+  width: 100%;
+  position: relative;
+  padding: 1rem 0 0;
+  box-sizing: border-box;
+}
+
+.slider-screen__label {
+  position: absolute;
+  font-size: 0.9rem;
+  color: #000;
+  transform: translateX(-50%);
+}
+
+.slider-screen__label:nth-child(1) {
+  left: 25%;
+}
+
+.slider-screen__label:nth-child(2) {
+  left: 50%;
+}
+
+.slider-screen__label:nth-child(3) {
+  left: 75%;
+}
+
+.slider-screen__cta {
+  display: block;
+  margin: 3.5rem auto 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.slider-screen__cta svg {
+  display: block;
+  width: 200px;
+  height: 40px;
+}
+
+.slider-screen__dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.slider-screen__dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: 50%;
+  margin-top: -4px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.slider-screen__dot:nth-child(1) {
+  left: 25%;
+  transform: translateX(-50%);
+}
+
+.slider-screen__dot:nth-child(2) {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.slider-screen__dot:nth-child(3) {
+  left: 75%;
+  transform: translateX(-50%);
+}
+
+/* 네이티브 range: 트랙만 보이게, thumb는 투명(커스텀 thumb로 대체) */
+.slider-screen__input {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  pointer-events: auto;
+  z-index: 20;
+}
+
+.slider-screen__input::-webkit-slider-runnable-track {
+  height: 0;
+  border: none;
+}
+
+.slider-screen__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 88px;
+  height: 88px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  box-shadow: none;
+  position: relative;
+  z-index: 20;
+  opacity: 0;
+}
+
+.slider-screen__input::-moz-range-track {
+  height: 0;
+  border: none;
+}
+
+.slider-screen__input::-moz-range-thumb {
+  width: 88px;
+  height: 88px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  box-shadow: none;
+  position: relative;
+  z-index: 20;
+  opacity: 0;
+}
+
+/* 노란 삼각형: bar 기준 position: absolute, left/top은 JS에서 getBoundingClientRect 기준으로 설정, 중심 기준은 transform: translate(-50%, -50%) */
+.slider-screen__thumb {
+  position: absolute;
+  width: 88px;
+  height: 88px;
+  pointer-events: none;
+  z-index: 21;
+}
+
+.slider-screen__thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+}
+
+/* ---------- 결과 페이지: 흰 화면 위에 노란+초록 두 사각형만 붙여서, 핀치 시 그 블록만 축소 ---------- */
+.result-screen {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  background-color: #fff;
+  overflow: hidden;
+  touch-action: none; /* 브라우저 줌/스크롤 막고, 우리가 두 사각형만 scale로 축소 */
+}
+
+/* 노트북용 임시 축소 슬라이더 */
+.result-screen__zoom-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+}
+
+.result-screen__zoom-label {
+  font-size: 0.75rem;
+  color: #333;
+  flex-shrink: 0;
+}
+
+.result-screen__zoom-slider {
+  flex: 1;
+  max-width: 160px;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.result-screen__zoom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #01903E;
+  cursor: pointer;
+}
+
+.result-screen__zoom-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #01903E;
+  cursor: pointer;
+  border: none;
+}
+
+.result-screen__zoom-value {
+  font-size: 0.75rem;
+  color: #333;
+  min-width: 2.5rem;
+}
+
+/* 이 블록만 scale 적용. 하단 고정(바닥에 붙은 채로 축소) */
+.result-screen__scale-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  max-width: 390px;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  will-change: transform;
+  transform-origin: bottom center;
+}
+
+.result-screen__yellow {
+  margin: 0;
+  min-height: 0;
+  flex-shrink: 0;
+  background-color: #FDF001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* 3페이지: 노란 영역이 좁을 때(ratio 1) 맥주 텍스트가 박스 안에 다 들어가도록 축소, 조금 더 크게 */
+.result-screen__yellow--narrow .result-screen__label-wrap {
+  transform: scale(0.5);
+}
+
+.result-screen__rect {
+  margin: 0;
+  min-height: 0;
+  flex-shrink: 0;
+  background-color: #01903E;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* 맥주/소주 + 우측 상단 숫자 감싸기. 축소 시 visibility+opacity로 숨김 */
+.result-screen__label-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s ease-out;
+}
+
+/* 맥주/소주: fill 없음, stroke만 블랙 */
+.result-screen__label-text {
+  color: transparent;
+  -webkit-text-stroke: 2px #000;
+  font-size: clamp(6rem, 24vw, 12rem);
+  font-weight: 700;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* 숫자: 맥주/소주 텍스트 기준 위쪽 상단 정렬, 우측에 배치. fill 없음 stroke만, Pretendard로 stroke 정리 */
+.result-screen__label-num {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  margin-left: 0.15em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px #000;
+  font-family: Pretendard, sans-serif;
+  font-size: clamp(2rem, 10vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+}
