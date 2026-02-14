@@ -53,7 +53,8 @@
   max-width: 80%;
   height: auto;
   object-fit: contain;
-  margin-top: 2.5rem;
+  margin-top: -2rem;
+  transform: scale(0.75);
 }
 
 .first-screen__mainimg {
@@ -61,13 +62,15 @@
   max-width: 100%;
   height: auto;
   object-fit: contain;
-  margin-top: auto;
+  margin-top: -3rem;
+  margin-bottom: 2.5rem;
+  transform: scale(0.8);
 }
 
 .first-screen__touch-hint-box {
   position: absolute;
   left: 50%;
-  top: 85%;
+  top: 75%;
   transform: translate(-50%, -50%);
   padding: 10px 30px;
   background-color: #ffffff;
@@ -113,6 +116,19 @@
   background-color: #fff;
 }
 
+.slider-screen--fire {
+  animation: slider-bg-fire 1.5s ease-in-out infinite;
+}
+
+@keyframes slider-bg-fire {
+  0%, 100% {
+    background-color: #fff;
+  }
+  50% {
+    background-color: #FF000A;
+  }
+}
+
 .slider-screen__title {
   width: calc(50%);
   max-width: 200px;
@@ -123,7 +139,7 @@
   font-weight: 400;
   color: #000;
   text-align: center;
-  background-color: #fff;
+  background-color: transparent;
   border: 1px solid #000;
   border-radius: 0;
   flex-shrink: 0;
@@ -355,59 +371,47 @@
   touch-action: none; /* 브라우저 줌/스크롤 막고, 우리가 두 사각형만 scale로 축소 */
 }
 
-/* 노트북용 임시 축소 슬라이더 */
-.result-screen__zoom-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: rgba(0, 0, 0, 0.06);
+.result-screen__hint-box {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  padding: 0.75rem 1.25rem;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  color: #000000;
+  font-size: 0.95rem;
+  text-align: center;
+  white-space: nowrap;
   box-sizing: border-box;
+  pointer-events: none;
+  animation: result-hint-blink 3s ease-in-out forwards;
 }
 
-.result-screen__zoom-label {
-  font-size: 0.75rem;
-  color: #333;
-  flex-shrink: 0;
-}
-
-.result-screen__zoom-slider {
-  flex: 1;
-  max-width: 160px;
-  height: 6px;
-  -webkit-appearance: none;
-  appearance: none;
-  background: #ccc;
-  border-radius: 3px;
-}
-
-.result-screen__zoom-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #01903E;
-  cursor: pointer;
-}
-
-.result-screen__zoom-slider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #01903E;
-  cursor: pointer;
-  border: none;
-}
-
-.result-screen__zoom-value {
-  font-size: 0.75rem;
-  color: #333;
-  min-width: 2.5rem;
+@keyframes result-hint-blink {
+  0% {
+    opacity: 0;
+  }
+  16.67% {
+    opacity: 1;
+  }
+  33.33% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  66.67% {
+    opacity: 0;
+  }
+  83.33% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 /* 이 블록만 scale 적용. 하단 고정(바닥에 붙은 채로 축소) */

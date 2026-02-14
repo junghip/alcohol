@@ -27,12 +27,18 @@ function ResultScreen({
   ratio: { yellow: number; green: number }
 }) {
   const [scale, setScale] = useState(1)
+  const [showResultHint, setShowResultHint] = useState(true)
   const wrapRef = useRef<HTMLDivElement>(null)
   const pinchStart = useRef<{ distance: number; scale: number } | null>(null)
   const scaleRef = useRef(scale)
   scaleRef.current = scale
   const nums = RESULT_LABEL_NUMS[resultStep]
   const showLabels = scale >= 0.99
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowResultHint(false), 3000)
+    return () => clearTimeout(t)
+  }, [])
 
   useEffect(() => {
     const el = wrapRef.current
@@ -80,24 +86,13 @@ function ResultScreen({
     }
   }, [])
 
-  const scalePercent = Math.round(scale * 100)
-
   return (
     <div ref={wrapRef} className="result-screen">
-      <div className="result-screen__zoom-bar">
-        <label className="result-screen__zoom-label">
-          축소 (노트북용)
-        </label>
-        <input
-          type="range"
-          className="result-screen__zoom-slider"
-          min={25}
-          max={100}
-          value={scalePercent}
-          onChange={(e) => setScale(Number(e.target.value) / 100)}
-        />
-        <span className="result-screen__zoom-value">{scalePercent}%</span>
-      </div>
+      {showResultHint && (
+        <div className="result-screen__hint-box" aria-live="polite">
+          잔 크기에 맞게 화면 크기를 조절해보세요
+        </div>
+      )}
       <div
         className="result-screen__scale-wrap"
         style={{
@@ -140,7 +135,7 @@ function ResultScreen({
 }
 
 const MARQUEE_TEXT = '소맥을 완벽하게 즐기는 법'
-const BLUR_BY_STEP = [0, 5, 10] // 1단계: 0, 2단계: 5, 3단계: 10
+const BLUR_BY_STEP = [0, 3, 3] // 1단계: 0, 2단계(기분좋게!): 3, 3단계(화끈하게!): 0
 const SLIDER_POSITIONS = [25, 50, 75] // 원과 핸들이 25%, 50%, 75%에 맞춤
 /** 노란:초록 높이 비율 — 1: 8:2, 2: 7:3, 3: 1:9 */
 const RESULT_RATIO: Record<1 | 2 | 3, { yellow: number; green: number }> = {
@@ -248,8 +243,9 @@ function App() {
   }
 
   if (page === 'slider') {
+    const isFireStep = sliderValue === 75 /* 화끈하게! */
     return (
-      <div className="slider-screen">
+      <div className={`slider-screen${isFireStep ? ' slider-screen--fire' : ''}`}>
         <h2 className="slider-screen__title">얼만큼 마실래?</h2>
         <div className="slider-screen__top">
           <div className="slider-screen__image-wrap">
