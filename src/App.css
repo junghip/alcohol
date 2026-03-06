@@ -53,7 +53,7 @@
   max-width: 100%;
   height: auto;
   object-fit: contain;
-  margin-top: -2rem;
+  margin-top: -1.5rem;
   transform: scale(0.75);
   display: block;
   align-self: stretch;
@@ -64,9 +64,9 @@
   max-width: 100%;
   height: auto;
   object-fit: contain;
+  object-position: center top;
   margin-top: -3rem;
   margin-bottom: 2.5rem;
-  transform: scale(0.8);
   display: block;
   align-self: stretch;
 }
@@ -465,7 +465,7 @@
   font-size: 1rem;
   color: #7F7F7F;
   background-color: #F6F6F6;
-  border: 1px solid #8E8E8E;
+  border: 1px solid #000000;
   border-radius: 0;
   cursor: pointer;
   box-sizing: border-box;
@@ -475,7 +475,7 @@
 
 .tutorial-screen__skip:focus {
   outline: none;
-  border-color: #8E8E8E;
+  border-color: #000000;
 }
 
 /* ---------- 결과 페이지: 흰 화면 위에 노란+초록 두 사각형만 붙여서, 핀치 시 그 블록만 축소 ---------- */
