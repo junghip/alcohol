@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import tutorial1 from './assets/tutorial1.png'
 import tutorial2 from './assets/tutorial2.png'
