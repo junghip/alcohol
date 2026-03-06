@@ -3,6 +3,7 @@ import maintextImg from './assets/maintext.png'
 import mainimg from './assets/mainimg.png'
 import smallimg from './assets/smallimg.png'
 import sliderbt from './assets/sliderbt.png'
+import TutorialScreen from './TutorialScreen'
 import './App.css'
 
 function getTouchDistance(touches: { length: number; 0?: Touch; 1?: Touch }): number {
@@ -147,7 +148,7 @@ const RESULT_RATIO: Record<1 | 2 | 3, { yellow: number; green: number }> = {
 const FIRST_SCREEN_IMAGES = [maintextImg, mainimg, smallimg, sliderbt]
 
 function App() {
-  const [page, setPage] = useState<'intro' | 'slider' | 'result'>('intro')
+  const [page, setPage] = useState<'intro' | 'slider' | 'tutorial' | 'result'>('intro')
   const [sliderValue, setSliderValue] = useState(25) // 25, 50, 75
   const [resultStep, setResultStep] = useState<1 | 2 | 3>(1)
   const [thumbPosition, setThumbPosition] = useState<{ left: number; top: number } | null>(null)
@@ -171,9 +172,15 @@ function App() {
   const handleSliderScreenClick = () => {
     const stepIndex = SLIDER_POSITIONS.indexOf(sliderValue)
     setResultStep((stepIndex >= 0 ? stepIndex : 0) + 1 as 1 | 2 | 3)
+    setPage('tutorial')
+    const url = window.location.pathname + window.location.search + '#tutorial'
+    window.history.pushState({ page: 'tutorial' }, '', url)
+  }
+
+  const handleTutorialComplete = () => {
     setPage('result')
     const url = window.location.pathname + window.location.search + '#result'
-    window.history.pushState({ page: 'result' }, '', url)
+    window.history.replaceState({ page: 'result' }, '', url)
   }
 
   useEffect(() => {
@@ -187,9 +194,11 @@ function App() {
       const fromHash = window.location.hash.replace(/^#/, '')
       const next = (fromState === 'slider' || fromHash === 'slider'
         ? 'slider'
-        : fromState === 'result' || fromHash === 'result'
-          ? 'result'
-          : 'intro') as 'intro' | 'slider' | 'result'
+        : fromState === 'tutorial' || fromHash === 'tutorial'
+          ? 'tutorial'
+          : fromState === 'result' || fromHash === 'result'
+            ? 'result'
+            : 'intro') as 'intro' | 'slider' | 'tutorial' | 'result'
       setPage(next)
     }
     window.addEventListener('popstate', onPopState)
@@ -240,6 +249,10 @@ function App() {
         ratio={RESULT_RATIO[resultStep]}
       />
     )
+  }
+
+  if (page === 'tutorial') {
+    return <TutorialScreen onComplete={handleTutorialComplete} />
   }
 
   if (page === 'slider') {
